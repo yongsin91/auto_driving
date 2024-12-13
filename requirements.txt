@@ -1,0 +1,4 @@
+## Requirements
+## - Python 3.4 or higher
+## - No additional dependencies required (uses standard library modules: `math`, `re`).
+python_version >= 3.4
