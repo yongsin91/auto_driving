@@ -22,7 +22,7 @@ def run_simulation(data, x, y):
     for a in range(max_len):
         
         # to loop through all cars
-        for index, b in enumerate(data):
+        for b in data:
 
             # to check if it's final position clashes with any existing car position in board
             check = clashing_cars(b,data)
@@ -58,8 +58,8 @@ def run_simulation(data, x, y):
             # update car new position into the list 
             b[1] = f"({curr_x},{curr_y}) {curr_dir}"
             
-            #update loop
-            b[3] +=1
+            #record the step
+            b[3] = (a+1)
     
     # output the result
     for a in data:

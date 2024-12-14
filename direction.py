@@ -9,8 +9,8 @@ def move_forward(direction,curr_x, curr_y):
     
 def rotate_left(data):
     # Rotate the object left (counter-clockwise) by the given angle in degrees.
-    return (data - 90)
+    return (data - 90) % 360
 
 def rotate_right(data):
     # Rotate the object right (clockwise) by the given angle in degrees.
-    return (data + 90)
+    return (data + 90) % 360
