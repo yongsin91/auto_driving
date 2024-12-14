@@ -2,8 +2,8 @@
 # coding: utf-8
 
 import re
-from initial_setup import *
-from simulation import *
+from initial_setup import field_check, main_menu, car_start
+from simulation import run_simulation
 
 def main():
     num1, num2 = field_check()
@@ -22,10 +22,10 @@ def main():
             result = run_simulation(registry, num1, num2)
 
             while loop2:
-                check = input('''
-                \nPlease choose from the following options:
-                \n[1] Start over
-                \n[2] Exit\n''').strip()
+                check = input(
+                    '''Please choose from the following options:
+                    \n[1] Start over
+                    \n[2] Exit\n''').strip()
     
                 if check =='1':
                     registry = []
@@ -35,7 +35,7 @@ def main():
                     loop1 = False
                     loop2 = False 
                 else:
-                    print("Please enter either [1] or [2] only.")
+                    print("Please enter either [1] or [2] only.\n")
 
             loop2 = True
 

@@ -32,7 +32,7 @@ def run_simulation(data, x, y):
                 continue
       
             #to skip the loop if it went out of range
-            if len(b[2]) < a+1:
+            elif len(b[2]) < a+1:
                 continue
                       
             #extract current position and direction from list
@@ -51,7 +51,7 @@ def run_simulation(data, x, y):
             else: 
                 curr_x, curr_y =  move_forward(direction[curr_dir], curr_x, curr_y)
                 
-            # to check if it's final position exceeds board boundary
+            # to skip updating car movement if it's final position exceeds board boundary
             if curr_x > x or curr_y > y or curr_x < 0 or curr_y < 0:
                 continue
 
@@ -64,7 +64,7 @@ def run_simulation(data, x, y):
     # output the result
     for a in data:
         if a[4] == '0':
-            print(f"{a[0]}, {a[1]}, {a[3]} ,{a[4]}")
+            print(f"{a[0]}, {a[1]}")
         else: 
             location = a[1].split()[0]
             col_cars = ", ".join(a[4])
