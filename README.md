@@ -36,9 +36,10 @@ If a car tries to move beyond the boundary of the field, the command is ignored,
 - sandbox.ipynb: ipython notebook. Able to test and tryout codes.
 
 ## Assumption
+- Car names are case insensitive and unique therefore 'a' and 'A' will be considered as the same car. No 2 cars will have the same name.
 - When processing commands for multiple cars, at every step, only one command can be processed for each car and it is sequential.
-- When multiple collision occurs, will only record steps of earliest collisions ( i.e. if car A and C collides at step 3, then car B collides with car A at step 7, car A will only record step 3 )
-- When multiple collision occurs, will not show individual collision breakdown ( i.e. if car A and C collides at step 3, then car B collides with car A at step 7, car A will only show collision with both car B and C and car A stops at step 3 )
+- When multiple collision occurs, will only record steps of earliest collisions <br>( i.e. if car A and C collides at step 3, then car B collides with car A at step 7, car A will only record step 3 )</br>
+- When multiple collision occurs, will not show individual collision breakdown <br>( i.e. if car A and C collides at step 3, then car B collides with car A at step 7, car A will only show collision with both car B and C and car A stops at step 3 )</br>
 - If user key in the same car name during the <ins>[1] Add a car to field</ins> phase, additional option is given to check if user want to overwrite current data.
 - If car movement exceeds simulation boundary, the step will be skipped, but subsequent steps will still continue to be processed.
 - Output results are all printed and shown but not logged. 
