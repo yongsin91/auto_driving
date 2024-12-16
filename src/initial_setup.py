@@ -13,17 +13,17 @@ def field_check():
             num1, num2 = map(int, user_input.split())
             
             # Check if both integers are within the specified range  
-            print(f"You have created a field of {num1} x {num2}.\n")
+            print(f"You have created a field of {num1} x {num2}.")
             return num1, num2
         else:
-            print("Invalid input. Please enter exactly two integers separated by a space.\n")
+            print("Invalid input. Please enter exactly two integers separated by a space.")
 
 
 def main_menu():
 
     while True:
         result = input(
-            '''Please choose from the following options:
+            '''\nPlease choose from the following options:
             \n[1] Add a car to field
             \n[2] Run simulation\n''').strip()
 

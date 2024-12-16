@@ -3,7 +3,7 @@
 
 import re
 from src.initial_setup import field_check, main_menu, car_start
-from src.simulation import run_simulation
+from src.simulation import run_simulation, display_cars
 
 def main():
     num1, num2 = field_check()
@@ -11,6 +11,11 @@ def main():
     loop1 = True
     loop2 = True
     while loop1 :
+
+        # to show current list of cars if user already added cars into the field
+        if registry:
+            display_cars(registry)
+
         selection = main_menu()
         
         if selection == 1:
@@ -29,7 +34,7 @@ def main():
                 #to check if user wants to exit or restart the simulation
                 while loop2:
                     check = input(
-                        '''Please choose from the following options:
+                        '''\nPlease choose from the following options:
                         \n[1] Start over
                         \n[2] Exit\n''').strip()
 

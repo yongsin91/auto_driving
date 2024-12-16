@@ -13,6 +13,10 @@ def clashing_cars(pnt, data):
     else:
         return all_position
 
+def display_cars(data):
+    print("Your current list of cars are:")
+    for a in data:
+        print(f"- {a[0]}, {a[1]}, {a[2]}")
 
 def run_simulation(data, x, y):
     max_len = max([len(a[2]) for a in data])
@@ -62,11 +66,14 @@ def run_simulation(data, x, y):
             #record the step
             b[3] = (a+1)
     
+    display_cars(data)
     # output the result
+
+    print("After simulation, the result is:")
     for a in data:
         if a[4] == '0':
-            print(f"{a[0]}, {a[1]}")
+            print(f"- {a[0]}, {a[1]}")
         else: 
             location = a[1].split()[0]
             col_cars = ", ".join(a[4])
-            print(f"{a[0]} , collided with {col_cars} at {location} at step {a[3]}")
+            print(f"- {a[0]} , collided with {col_cars} at {location} at step {a[3]}")
