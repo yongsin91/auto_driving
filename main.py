@@ -16,25 +16,29 @@ def main():
         if selection == 1:
             registry.append(car_start(num1,num2, registry))
         else: 
-
+            
+            #to check if user run simulation directly before adding any cars
             if not registry:
-                print("No cars is added into the simulation yet.")
+                print("No cars are added into the simulation yet.")
             else:
                 #to add a marker tracking steps of car during looping and collision
                 #registry format : [ 'car name','car position', 'command', 'step','collided cars' ]
                 registry = [ b + [0] + ['0'] for b in registry ]
                 result = run_simulation(registry, num1, num2)
 
+                #to check if user wants to exit or restart the simulation
                 while loop2:
                     check = input(
                         '''Please choose from the following options:
                         \n[1] Start over
                         \n[2] Exit\n''').strip()
-        
+
+                    #to restart the simulation
                     if check =='1':
                         registry = []
                         loop2 = False 
-        
+                        
+                    #to exit the simulation
                     elif check =='2':
                         loop1 = False
                         loop2 = False 

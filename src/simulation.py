@@ -25,6 +25,7 @@ def run_simulation(data, x, y):
         for b in data:
 
             # to check if it's final position clashes with any existing car position in board
+            # if True, the collided cars will be recorded, and further commands will be skipped
             check = clashing_cars(b,data)
             if check:
                 # collided cars will be appended to the end of list for tracking 

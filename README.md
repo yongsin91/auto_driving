@@ -16,7 +16,7 @@ A list of commands can be issued to each car, which can be one of three commands
 If a car tries to move beyond the boundary of the field, the command is ignored, and the car stays in its current position. For example, if a car at position (0,0) is facing South and receives an F command, the command will be ignored as it would take the car beyond the boundary of the field.
 
 ## Requirements
-- Python 3.4 or higher
+- Python 3.4 or higher (regex full match introduced at 3.4)
 - No additional dependencies are required (uses standard library modules).
 
 ## Setup Instruction 
@@ -24,7 +24,7 @@ If a car tries to move beyond the boundary of the field, the command is ignored,
 - Run the main script: python main.py
 
 ## Files
-### Main directory 
+### Main Directory 
 - auto_driving.md: Full brief of the questions and scenarios of this program is required to solve.
 - requirements.txt: List package required to run the program smoothly.
 - main.py: main running file. Program will be started by running this file
