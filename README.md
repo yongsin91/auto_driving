@@ -13,15 +13,29 @@ A list of commands can be issued to each car, which can be one of three commands
 - R: rotates the car by 90 degrees to the right
 - F: moves forward by 1 grid point
 
+If a car tries to move beyond the boundary of the field, the command is ignored, and the car stays in its current position. For example, if a car at position (0,0) is facing South and receives an F command, the command will be ignored as it would take the car beyond the boundary of the field.
+
+## Requirements
+- Python 3.4 or higher
+- No additional dependencies are required (uses standard library modules).
+
+## Setup Instruction 
+- Clone this repository
+- Run the main script: python main.py
+
 ## Files
+### Main directory 
 - auto_driving.md: Full brief of the questions and scenarios of this program is required to solve.
 - requirements.txt: List package required to run the program smoothly.
 - main.py: main running file. Program will be started by running this file
+### src 
 - direction.py: sub-module file. Rotate and/or move the cars according to commands
 - initial_setup.py: sub-module file. Records and setup the name, initial position, and car commands
 - simulation.py: sub-module file. Run through the car commands to get the final location.
+### notebooks
 - sandbox.ipynb: ipython notebook. Able to test and tryout codes.
 
-## Criteria
-- Code quality should be production ready and with the necessary unit tests.
-- Coding style should follow software engineering best practice that the candidate is doing.
+## Assumption
+- When multiple collision occurs, will only record steps of earliest collisions ( i.e. if car A and C collides at step 3, then car B collides with car A at step 7, car A will only record step 3 )
+- When multiple collision occurs, will not show individual collision breakdown ( i.e. if car A and C collides at step 3, then car B collides with car A at step 7, car A will only show collision with both car B and C and car A stops at step 3 )
+- If user key in the same car name during the <ins>[1] Add a car to field</ins> phase, additional option is given to check if user want to overwrite current data.
