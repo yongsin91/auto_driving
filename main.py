@@ -2,8 +2,8 @@
 # coding: utf-8
 
 import re
-from initial_setup import field_check, main_menu, car_start
-from simulation import run_simulation
+from src.initial_setup import field_check, main_menu, car_start
+from src.simulation import run_simulation
 
 def main():
     num1, num2 = field_check()

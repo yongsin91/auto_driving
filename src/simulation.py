@@ -1,5 +1,5 @@
 import re 
-from direction import *
+from src.direction import *
 
 def clashing_cars(pnt, data):
     # check if any cars having matching location
