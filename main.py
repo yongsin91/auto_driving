@@ -16,28 +16,32 @@ def main():
         if selection == 1:
             registry.append(car_start(num1,num2, registry))
         else: 
-            #to add a marker tracking steps of car during looping and collision
-            #registry format : [ 'car name','car position', 'command', 'step','collided cars' ]
-            registry = [ b + [0] + ['0'] for b in registry ]
-            result = run_simulation(registry, num1, num2)
 
-            while loop2:
-                check = input(
-                    '''Please choose from the following options:
-                    \n[1] Start over
-                    \n[2] Exit\n''').strip()
-    
-                if check =='1':
-                    registry = []
-                    loop2 = False 
-    
-                elif check =='2':
-                    loop1 = False
-                    loop2 = False 
-                else:
-                    print("Please enter either [1] or [2] only.\n")
+            if not registry:
+                print("No cars is added into the simulation yet.")
+            else:
+                #to add a marker tracking steps of car during looping and collision
+                #registry format : [ 'car name','car position', 'command', 'step','collided cars' ]
+                registry = [ b + [0] + ['0'] for b in registry ]
+                result = run_simulation(registry, num1, num2)
 
-            loop2 = True
+                while loop2:
+                    check = input(
+                        '''Please choose from the following options:
+                        \n[1] Start over
+                        \n[2] Exit\n''').strip()
+        
+                    if check =='1':
+                        registry = []
+                        loop2 = False 
+        
+                    elif check =='2':
+                        loop1 = False
+                        loop2 = False 
+                    else:
+                        print("Please enter either [1] or [2] only.\n")
+
+                loop2 = True
 
 
 main()
