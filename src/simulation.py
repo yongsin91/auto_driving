@@ -16,7 +16,7 @@ def clashing_cars(pnt, data):
 def display_cars(data):
     print("Your current list of cars are:")
     for a in data:
-        print(f"- {a[0]}, {a[1]}, {a[2]}")
+        print(f"- {a[0]}, {a[5]}, {a[2]}")
 
 def run_simulation(data, x, y):
     max_len = max([len(a[2]) for a in data])
@@ -41,10 +41,7 @@ def run_simulation(data, x, y):
                 continue
                       
             #extract current position and direction from list
-            if b[5]=='0':
-                curr_pos, curr_dir = b[1].split()
-            else:
-                curr_pos, curr_dir = b[5].split()
+            curr_pos, curr_dir = b[1].split()
             digits = re.findall(r'\d+', curr_pos)
             curr_x, curr_y = list(map(int, digits))
 
@@ -64,7 +61,7 @@ def run_simulation(data, x, y):
                 continue
 
             # update car new position into the list 
-            b[5] = f"({curr_x},{curr_y}) {curr_dir}"
+            b[1] = f"({curr_x},{curr_y}) {curr_dir}"
             
             #record the step
             b[3] = (a+1)
@@ -76,7 +73,7 @@ def run_simulation(data, x, y):
     print("After simulation, the result is:")
     for a in data:
         if a[4] == '0':
-            print(f"- {a[0]}, {a[5]}")
+            print(f"- {a[0]}, {a[1]}")
         else: 
             location = a[1].split()[0]
             col_cars = ", ".join(a[4])

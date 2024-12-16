@@ -70,7 +70,8 @@ def car_start(num1,num2,data):
 
             # to ensure comands given are in correct format
             if re.fullmatch(r"[lrfLRF]+", direction):
-                return [car_name, f"({xi},{yi}) {di.upper()}", direction.upper()]
+                # data format : [ 'car name','final position', 'command', 'step','collided cars','initial position' ]
+                return [car_name, f"({xi},{yi}) {di.upper()}", direction.upper(),0,'0',f"({xi},{yi}) {di.upper()}"]
             else:
                 print(
                     """Error. Please try again in the combination of [L][R][F] only

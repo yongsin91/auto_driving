@@ -28,8 +28,7 @@ def main():
                 print("No cars are added into the simulation yet.")
             else:
                 #to add a marker tracking steps of car during looping and collision
-                #registry format : [ 'car name','start position', 'command', 'step','collided cars','final position' ]
-                registry = [ b + [0] + ['0'] + ['0'] for b in registry ]
+                #registry format : [ 'car name','final position', 'command', 'step','collided cars','initial position' ]
                 result = run_simulation(registry, num1, num2)
 
                 #to check if user wants to exit or restart the simulation
