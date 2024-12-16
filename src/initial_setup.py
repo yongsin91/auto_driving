@@ -36,7 +36,10 @@ def main_menu():
 def car_start(num1,num2,data):
 
     while True:
+
         car_name = input("Please input the name of the car:\n").strip().upper()
+
+        # to check if car names exists in current list
         if car_name in [a[0] for a in data]:
             overwrite_check = input("This name already exists, do you want to overwrite? Y/N\n").strip().upper()
             if overwrite_check == 'Y':

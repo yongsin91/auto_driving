@@ -18,6 +18,7 @@ def main():
 
         selection = main_menu()
         
+        #to add cars into current list of cars
         if selection == 1:
             registry.append(car_start(num1,num2, registry))
         else: 
