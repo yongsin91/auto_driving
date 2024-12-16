@@ -41,7 +41,10 @@ def run_simulation(data, x, y):
                 continue
                       
             #extract current position and direction from list
-            curr_pos, curr_dir = b[1].split()
+            if b[5]=='0':
+                curr_pos, curr_dir = b[1].split()
+            else:
+                curr_pos, curr_dir = b[5].split()
             digits = re.findall(r'\d+', curr_pos)
             curr_x, curr_y = list(map(int, digits))
 
@@ -61,18 +64,19 @@ def run_simulation(data, x, y):
                 continue
 
             # update car new position into the list 
-            b[1] = f"({curr_x},{curr_y}) {curr_dir}"
+            b[5] = f"({curr_x},{curr_y}) {curr_dir}"
             
             #record the step
             b[3] = (a+1)
     
+    # display initial list and position
     display_cars(data)
-    # output the result
 
+    # output the result
     print("After simulation, the result is:")
     for a in data:
         if a[4] == '0':
-            print(f"- {a[0]}, {a[1]}")
+            print(f"- {a[0]}, {a[5]}")
         else: 
             location = a[1].split()[0]
             col_cars = ", ".join(a[4])
