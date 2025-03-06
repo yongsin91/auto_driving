@@ -4,8 +4,8 @@ import io
 from unittest.mock import patch
 
 from src.initial_setup  import field_setup, car_setup
-from src.direction      import move_forward, rotate
-from src.simulation     import clashing_cars, display_cars, run_simulation
+from src.misc           import move_forward, display_cars, clashing_cars
+from src.simulation     import run_simulation
 from src.main_cli       import selection_check, base
 
 # Dummy field class to simulate the field object
@@ -89,24 +89,6 @@ class TestMoveForward(unittest.TestCase):
         self.assertEqual(result, (-1, 0))
         result = move_forward(0, 5, 5)
         self.assertEqual(result, (5, 6))
-
-# Unit tests for rotate
-class TestRotation(unittest.TestCase):
-    # Tests for rotate_left
-    def test_rotate_left(self):
-        self.assertEqual(rotate("L",0), 270)
-        self.assertEqual(rotate("L",90), 0)
-        self.assertEqual(rotate("L",180), 90)
-        self.assertEqual(rotate("L",270), 180)
-        self.assertEqual(rotate("L",45), 315)
-    
-    # Tests for rotate_right
-    def test_rotate_right(self):
-        self.assertEqual(rotate("R",0), 90)
-        self.assertEqual(rotate("R",90), 180)
-        self.assertEqual(rotate("R",180), 270)
-        self.assertEqual(rotate("R",270), 0)
-        self.assertEqual(rotate("R",315), 45)
 
 # Unit tests for clashing_cars
 class TestClashingCars(unittest.TestCase):

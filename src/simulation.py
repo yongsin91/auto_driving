@@ -1,35 +1,13 @@
 import re 
-from src.direction import *
-
-def clashing_cars(curr_car, data):
-    #to extract all car positions in the list
-    position_list = [ f"{car.final_x} {car.final_y}" for car in data ]
-
-    #if length of list & set is not the same
-    #that means there are cars at the same location, which meant collision
-    if len(set(position_list)) != len(position_list):
-        duplicates = []
-
-        for car in data:
-            position = f"{car.final_x} {car.final_y}"
-            if position == f"{curr_car.final_x} {curr_car.final_y}" and car.name != curr_car.name:
-                duplicates.append(f"{car.name}")  
-
-        if duplicates:
-            return duplicates
-
-    return False
-
-
-def display_cars(data):
-    print("Your current list of cars are:")
-    for car in data:
-        print(f"- {car.name}, ({car.initial_x},{car.initial_y}) {car.initial_dir}, {car.commands}")
+from src.misc import move_forward, display_cars, clashing_cars
 
 def run_simulation(data, field):
     max_len = max([len(car.commands) for car in data])
     direction = {'N':0, 'E':90, 'S':180, 'W':270}
-    reverse_dir = {0:'N', 90:'E', 180:'S', 270:'W'}
+    # direct mapping of direction
+    rotate_dir = {  
+        'L': {'N':'W','E':'N', 'S':'E','W':'S'}, 
+        'R': {'N':'E','E':'S', 'S':'W','W':'N'}}
 
     # to loop through all possible commands 
     for a in range(max_len):
@@ -52,8 +30,8 @@ def run_simulation(data, field):
             # to rotate or move base on the command
             current_command = car.commands[a]
             if current_command =='L' or current_command == 'R':
-                tmp = rotate(current_command, direction[car.final_dir])
-                car.final_dir = reverse_dir[tmp]
+                tmp = rotate_dir[current_command]
+                car.final_dir = tmp[car.final_dir]
 
             else: 
                 curr_x, curr_y =  move_forward(direction[car.final_dir], car.final_x, car.final_y)

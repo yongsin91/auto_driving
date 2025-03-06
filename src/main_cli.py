@@ -1,6 +1,7 @@
 import re
 from .initial_setup import field_setup, car_setup
-from .simulation import run_simulation, display_cars
+from .simulation import run_simulation
+from .misc import display_cars
 
 def selection_check(query):
     while True:
