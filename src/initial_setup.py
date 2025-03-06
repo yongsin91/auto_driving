@@ -59,7 +59,7 @@ class car_setup:
                 
                 # to ensure position given are in the correct format
                 if not re.fullmatch(r"\d+ \d+ [NSEW]", initial_pos):
-                    raise ValueError("Error. Please try again in the correct format for the 3 variables - x y direction(NSEW only).\n")
+                    raise ValueError("Error. Please enter with correct format - x y direction (in positive integer & NSEW for direction only).\n")
                     continue
                 
                 xi, yi, di = initial_pos.split()
@@ -68,7 +68,7 @@ class car_setup:
                 if f"{xi} {yi}" in [ f"{car.final_x} {car.final_y}" for car in data]:
                     raise ValueError("Location already occupied. Please start at a new location")
                 # ensure position given are within the initial boundary           
-                elif int(xi) > field.width or int(yi) > field.height or int(xi) < 0 or int(yi) < 0 :
+                elif int(xi) > field.width or int(yi) > field.height:
                     raise ValueError(f"Impossible initial position. The simulation field size is {field.width} x {field.height}. Please try again.")            
                 else: 
                     self.initial_x = self.final_x = int(xi)
