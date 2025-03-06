@@ -3,44 +3,10 @@ import io
 
 from unittest.mock import patch
 
-from src.direction      import move_forward, rotate
 from src.initial_setup  import field_setup, car_setup
+from src.direction      import move_forward, rotate
 from src.simulation     import clashing_cars, display_cars, run_simulation
 from src.main_cli       import selection_check, base
-
-# Unit tests for selection_check
-class TestSelectionCheck(unittest.TestCase):
-    def test_valid_input(self):
-        # When the input is valid immediately
-        with patch('builtins.input', return_value='1'):
-            result = selection_check("Choose 1 or 2: ")
-            self.assertEqual(result, '1')
-
-    @patch('builtins.input', side_effect=['abc', '2'])
-    def test_invalid_then_valid_input(self, mock_input):
-        # Simulate multiple inputs: first an invalid input, then a valid input.
-        # Simulate only correct selections are being returned
-        with patch('sys.stdout', new=io.StringIO()) as fake_out:
-            result = selection_check("Choose 1 or 2: ")
-            output = fake_out.getvalue()
-            self.assertIn("Error: Please enter either [1] or [2] only.", output)
-            self.assertEqual(result, '2')
-
-# Unit tests for field_setup
-class TestFieldSetup(unittest.TestCase):
-    @patch('builtins.input', side_effect=["10", "abc", "15 25"])
-    def test_invalid_then_valid_input(self, mock_input):
-        # This test simulates two invalid inputs followed by a valid input.
-        with patch('sys.stdout', new=io.StringIO()) as fake_out:
-            fs = field_setup()
-            fs.start()
-            output = fake_out.getvalue()
-            # Check that error messages appear for invalid inputs
-            self.assertIn("Error: Invalid input. Please enter exactly two positive integers separated by a space.", output)
-            # And finally, that the valid input is accepted
-            self.assertIn("You have created a field of 15 x 25.", output)
-            self.assertEqual(fs.width, 15)
-            self.assertEqual(fs.height, 25)
 
 # Dummy field class to simulate the field object
 class DummyField:
@@ -58,6 +24,22 @@ class DummyCar:
         self.commands = commands
         self.collided = False
         self.step = 0
+
+# Unit tests for field_setup
+class TestFieldSetup(unittest.TestCase):
+    @patch('builtins.input', side_effect=["10", "abc", "15 25"])
+    def test_invalid_then_valid_input(self, mock_input):
+        # This test simulates two invalid inputs followed by a valid input.
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            fs = field_setup()
+            fs.start()
+            output = fake_out.getvalue()
+            # Check that error messages appear for invalid inputs
+            self.assertIn("Error: Invalid input. Please enter exactly two positive integers separated by a space.", output)
+            # And finally, that the valid input is accepted
+            self.assertIn("You have created a field of 15 x 25.", output)
+            self.assertEqual(fs.width, 15)
+            self.assertEqual(fs.height, 25)
 
 # Unit tests for car_setup
 class TestCarSetup(unittest.TestCase):
@@ -93,10 +75,9 @@ class TestCarSetup(unittest.TestCase):
             car = car_setup(field, registry)
             self.assertEqual(car.commands, "LRF")
 
-# Unit tests for move_forward, rotate_left, rotate_right
-class TestDirection(unittest.TestCase):
-    
-    # Tests for move_forward
+# Unit tests for move_forward
+class TestMoveForward(unittest.TestCase):
+    # Tests for move_forward in both x and y axis
     def test_move_forward(self):
         result = move_forward(0, 0, 0)
         self.assertEqual(result, (0, 1))
@@ -109,8 +90,10 @@ class TestDirection(unittest.TestCase):
         result = move_forward(0, 5, 5)
         self.assertEqual(result, (5, 6))
 
+# Unit tests for rotate
+class TestRotation(unittest.TestCase):
     # Tests for rotate_left
-    def test_rotate_right(self):
+    def test_rotate_left(self):
         self.assertEqual(rotate("L",0), 270)
         self.assertEqual(rotate("L",90), 0)
         self.assertEqual(rotate("L",180), 90)
@@ -217,6 +200,23 @@ class TestBase(unittest.TestCase):
         output = mock_stdout.getvalue()
         self.assertIn("Thank you for running the simulation. Goodbye!", output)
 
+# Unit tests for selection_check
+class TestSelectionCheck(unittest.TestCase):
+    def test_valid_input(self):
+        # When the input is valid immediately
+        with patch('builtins.input', return_value='1'):
+            result = selection_check("Choose 1 or 2: ")
+            self.assertEqual(result, '1')
+
+    @patch('builtins.input', side_effect=['abc', '2'])
+    def test_invalid_then_valid_input(self, mock_input):
+        # Simulate multiple inputs: first an invalid input, then a valid input.
+        # Simulate only correct selections are being returned
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            result = selection_check("Choose 1 or 2: ")
+            output = fake_out.getvalue()
+            self.assertIn("Error: Please enter either [1] or [2] only.", output)
+            self.assertEqual(result, '2')
 
 if __name__ == '__main__':
     unittest.main()
