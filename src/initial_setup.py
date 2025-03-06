@@ -37,7 +37,7 @@ class car_setup:
         self.car_commands()
         self.collided = ""
         self.step = 0
-
+    
     def car_name(self, data):
         while True:
             try:
@@ -86,8 +86,6 @@ class car_setup:
                 direction = input(f"Please enter the commands for car {self.name}:\n").strip().upper()
                 # to ensure comands given are in correct format 
                 if re.fullmatch(r"[LRF]+", direction):
-                    # data format : [ 'car name','final position', 'command', 'step','collided cars','initial position' ]
-                    # answer = [car_name, f"({xi},{yi}) {di.upper()}", direction.upper(),0,'0',f"({xi},{yi}) {di.upper()}"]
                     self.commands = direction
                     break
                 else:
