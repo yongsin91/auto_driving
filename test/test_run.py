@@ -52,9 +52,9 @@ class DummyField:
 class DummyCar:
     def __init__(self, name, final_x, final_y, final_dir, commands):
         self.name = name
-        self.final_x = final_x
-        self.final_y = final_y
-        self.final_dir = final_dir
+        self.final_x = self.initial_x = final_x
+        self.final_y = self.initial_y = final_y
+        self.final_dir = self.initial_dir = final_dir
         self.commands = commands
         self.collided = False
         self.step = 0
@@ -152,8 +152,8 @@ class TestDisplayCars(unittest.TestCase):
             display_cars(data)
             output = fake_out.getvalue()
             self.assertIn("Your current list of cars are:", output)
-            self.assertIn("- A, 1 1 N, F", output)
-            self.assertIn("- B, 2 2 E, LFR", output)
+            self.assertIn("- A, (1,1) N, F", output)
+            self.assertIn("- B, (2,2) E, LFR", output)
 
 # Unit tests for the run_simulation
 class TestSimulation(unittest.TestCase):
