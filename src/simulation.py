@@ -1,13 +1,11 @@
 import re 
-from src.misc import move_forward, display_cars, clashing_cars
+from src.misc import move_forward, display_cars, clashing_cars, rotate_dir
 
 def run_simulation(data, field):
     max_len = max([len(car.commands) for car in data])
     direction = {'N':0, 'E':90, 'S':180, 'W':270}
     # direct mapping of direction
-    rotate_dir = {  
-        'L': {'N':'W','E':'N', 'S':'E','W':'S'}, 
-        'R': {'N':'E','E':'S', 'S':'W','W':'N'}}
+    reverse_dir = {0:'N',90:'E',180:'S',270:'W'}
 
     # to loop through all possible commands 
     for a in range(max_len):
@@ -29,9 +27,9 @@ def run_simulation(data, field):
                       
             # to rotate or move base on the command
             current_command = car.commands[a]
-            if current_command =='L' or current_command == 'R':
-                tmp = rotate_dir[current_command]
-                car.final_dir = tmp[car.final_dir]
+            if current_command != 'F':
+                tmp = rotate_dir(current_command, direction[car.final_dir])
+                car.final_dir = reverse_dir[tmp]
 
             else: 
                 curr_x, curr_y =  move_forward(direction[car.final_dir], car.final_x, car.final_y)

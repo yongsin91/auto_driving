@@ -12,7 +12,10 @@ def display_cars(data):
     for car in data:
         print(f"- {car.name}, ({car.initial_x},{car.initial_y}) {car.initial_dir}, {car.commands}")
 
-
+def rotate_dir(direction, angle):
+    select = {'L':-90, 'R':90}
+    return (angle + select[direction]) % 360
+    
 def clashing_cars(curr_car, data):
     #to extract all car positions in the list
     position_list = [ f"{car.final_x} {car.final_y}" for car in data ]

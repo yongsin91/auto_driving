@@ -4,7 +4,7 @@ import io
 from unittest.mock import patch
 
 from src.initial_setup  import field_setup, car_setup
-from src.misc           import move_forward, display_cars, clashing_cars
+from src.misc           import move_forward, display_cars, clashing_cars, rotate_dir
 from src.simulation     import run_simulation
 from src.main_cli       import selection_check, base
 
@@ -119,6 +119,22 @@ class TestDisplayCars(unittest.TestCase):
             self.assertIn("Your current list of cars are:", output)
             self.assertIn("- A, (1,1) N, F", output)
             self.assertIn("- B, (2,2) E, LFR", output)
+
+# Unit tests for rotate_dir
+class TestRotateDir(unittest.TestCase):
+    def test_rotate_left(self):
+        # Test left rotations.
+        self.assertEqual(rotate_dir('L', 0), 270)
+        self.assertEqual(rotate_dir('L', 90), 0)
+        self.assertEqual(rotate_dir('L', 180), 90)
+        self.assertEqual(rotate_dir('L', 270), 180)
+        
+    def test_rotate_right(self):
+        # Test right rotations.
+        self.assertEqual(rotate_dir('R', 0), 90)
+        self.assertEqual(rotate_dir('R', 90), 180)
+        self.assertEqual(rotate_dir('R', 180), 270)
+        self.assertEqual(rotate_dir('R', 270), 0)
 
 # Unit tests for the run_simulation
 class TestSimulation(unittest.TestCase):
