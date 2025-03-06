@@ -3,7 +3,7 @@ import io
 
 from unittest.mock import patch
 
-from src.direction      import move_forward, rotate_left, rotate_right
+from src.direction      import move_forward, rotate
 from src.initial_setup  import field_setup, car_setup
 from src.simulation     import clashing_cars, display_cars, run_simulation
 from src.main_cli       import selection_check, base
@@ -97,46 +97,33 @@ class TestCarSetup(unittest.TestCase):
 class TestDirection(unittest.TestCase):
     
     # Tests for move_forward
-    def test_move_forward_0_degrees(self):
-        # For direction 0°, sin(0)=0, cos(0)=1: moves upward by 1 unit.
+    def test_move_forward(self):
         result = move_forward(0, 0, 0)
         self.assertEqual(result, (0, 1))
-        
-    def test_move_forward_90_degrees(self):
-        # For direction 90°, sin(90)=1, cos(90)=0: moves right by 1 unit.
         result = move_forward(90, 0, 0)
-        self.assertEqual(result, (1, 0))
-        
-    def test_move_forward_180_degrees(self):
-        # For direction 180°, sin(180)=0, cos(180)=-1: moves downward by 1 unit.
+        self.assertEqual(result, (1, 0))    
         result = move_forward(180, 0, 0)
-        self.assertEqual(result, (0, -1))
-        
-    def test_move_forward_270_degrees(self):
-        # For direction 270°, sin(270)=-1, cos(270)=0: moves left by 1 unit.
+        self.assertEqual(result, (0, -1)) 
         result = move_forward(270, 0, 0)
         self.assertEqual(result, (-1, 0))
-        
-    def test_move_forward_non_zero_start(self):
-        # Starting at (5, 5) and moving at 0° should give (5, 6)
         result = move_forward(0, 5, 5)
         self.assertEqual(result, (5, 6))
-    
+
     # Tests for rotate_left
-    def test_rotate_left(self):
-        self.assertEqual(rotate_left(0), 270)
-        self.assertEqual(rotate_left(90), 0)
-        self.assertEqual(rotate_left(180), 90)
-        self.assertEqual(rotate_left(270), 180)
-        self.assertEqual(rotate_left(45), 315)
+    def test_rotate_right(self):
+        self.assertEqual(rotate("L",0), 270)
+        self.assertEqual(rotate("L",90), 0)
+        self.assertEqual(rotate("L",180), 90)
+        self.assertEqual(rotate("L",270), 180)
+        self.assertEqual(rotate("L",45), 315)
     
     # Tests for rotate_right
     def test_rotate_right(self):
-        self.assertEqual(rotate_right(0), 90)
-        self.assertEqual(rotate_right(90), 180)
-        self.assertEqual(rotate_right(180), 270)
-        self.assertEqual(rotate_right(270), 0)
-        self.assertEqual(rotate_right(315), 45)
+        self.assertEqual(rotate("R",0), 90)
+        self.assertEqual(rotate("R",90), 180)
+        self.assertEqual(rotate("R",180), 270)
+        self.assertEqual(rotate("R",270), 0)
+        self.assertEqual(rotate("R",315), 45)
 
 # Unit tests for clashing_cars
 class TestClashingCars(unittest.TestCase):

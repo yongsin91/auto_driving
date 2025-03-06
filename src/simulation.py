@@ -31,7 +31,8 @@ def display_cars(data):
 def run_simulation(data, field):
     max_len = max([len(car.commands) for car in data])
     direction = {'N':0, 'E':90, 'S':180, 'W':270}
-    
+    reverse_dir = {0:'N', 90:'E', 180:'S', 270:'W'}
+
     # to loop through all possible commands 
     for a in range(max_len):
         
@@ -52,20 +53,12 @@ def run_simulation(data, field):
                       
             # calculation
             # to rotate or move base on the command
-            if car.commands[a] =='L':
-
-                tmp = rotate_left(direction[car.final_dir])
-                curr_dir = [k for k, v in direction.items() if v == tmp][0]
-                car.final_dir = curr_dir
-
-            elif car.commands[a] == 'R':
-
-                tmp = rotate_right(direction[car.final_dir])
-                curr_dir = [k for k, v in direction.items() if v == tmp][0]
-                car.final_dir = curr_dir
+            current_command = car.commands[a]
+            if current_command =='L' or current_command == 'R':
+                tmp = rotate(current_command, direction[car.final_dir])
+                car.final_dir = reverse_dir[tmp]
 
             else: 
-    
                 curr_x, curr_y =  move_forward(direction[car.final_dir], car.final_x, car.final_y)
                 # to skip updating car movement if it's final position exceeds board boundary
                 if curr_x > field.width or curr_y > field.height or curr_x < 0 or curr_y < 0:
