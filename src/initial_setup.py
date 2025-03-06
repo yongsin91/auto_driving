@@ -71,9 +71,9 @@ class car_setup:
                 elif int(xi) > field.width or int(yi) > field.height or int(xi) < 0 or int(yi) < 0 :
                     raise ValueError(f"Impossible initial position. The simulation field size is {field.width} x {field.height}. Please try again.")            
                 else: 
-                    self.final_x = int(xi)
-                    self.final_y = int(yi)
-                    self.final_dir = di
+                    self.initial_x = self.final_x = int(xi)
+                    self.initial_y = self.final_y = int(yi)
+                    self.initial_dir = self.final_dir = di
                     break
 
             except ValueError as e:

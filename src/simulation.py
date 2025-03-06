@@ -17,16 +17,14 @@ def clashing_cars(curr_car, data):
 
         if duplicates:
             return duplicates
-        else:
-            return False
-    else:
-        return False
+
+    return False
 
 
 def display_cars(data):
     print("Your current list of cars are:")
     for car in data:
-        print(f"- {car.name}, {car.final_x} {car.final_y} {car.final_dir}, {car.commands}")
+        print(f"- {car.name}, ({car.initial_x},{car.initial_y}) {car.initial_dir}, {car.commands}")
 
 def run_simulation(data, field):
     max_len = max([len(car.commands) for car in data])
@@ -51,7 +49,6 @@ def run_simulation(data, field):
             elif len(car.commands) < a+1:
                 continue
                       
-            # calculation
             # to rotate or move base on the command
             current_command = car.commands[a]
             if current_command =='L' or current_command == 'R':
@@ -74,9 +71,6 @@ def run_simulation(data, field):
                 car.collided = final_check
             #record the step
             car.step = a + 1
-
-
-
 
     # display initial list and position
     display_cars(data)
