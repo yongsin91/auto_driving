@@ -1,5 +1,5 @@
 import re 
-from src.misc import move_forward, display_cars, clashing_cars, rotate_dir
+from .misc import move_forward, display_cars, clashing_cars, rotate_dir
 
 def run_simulation(data, field):
     max_len = max([len(car.commands) for car in data])
