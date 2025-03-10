@@ -27,9 +27,10 @@ class DummyCar:
 
 # Unit tests for field_setup
 class TestFieldSetup(unittest.TestCase):
-    @patch('builtins.input', side_effect=["10", "abc", "15 25"])
+    
+    # input tested on invalid format input, empty inputs followed by a valid input.
+    @patch('builtins.input', side_effect=["10", "abc", "", "15 25"])
     def test_invalid_then_valid_input(self, mock_input):
-        # This test simulates two invalid inputs followed by a valid input.
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             fs = field_setup()
             fs.start()
@@ -41,9 +42,9 @@ class TestFieldSetup(unittest.TestCase):
             self.assertEqual(fs.width, 15)
             self.assertEqual(fs.height, 25)
 
+    # ENHANCED: input tested on 0 x 0 field
     @patch('builtins.input', side_effect=["0 0","15 25"])
     def test_enhanced_zerofield(self, mock_input):
-        # This test simulates two invalid inputs followed by a valid input.
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             fs = field_setup()
             fs.start()
@@ -58,18 +59,20 @@ class TestFieldSetup(unittest.TestCase):
 # Unit tests for car_setup
 class TestCarSetup(unittest.TestCase):
  
-    # input tested on duplicating car names 
-    @patch('builtins.input', side_effect=["Car1", "Car2", "1 2 N", "LrF"])
+    # input tested on duplicating car names, empty car names 
+    @patch('builtins.input', side_effect=["Car1", "", "Car2", "1 2 N", "LrF"])
     def test_car_duplicate_name(self, mock_input):
         car1 = DummyCar("CAR1", "0", "0", "N", "F")
         registry = [car1]
         field = DummyField(10, 10)
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             car = car_setup(field, registry)
+            output = fake_out.getvalue()
+            self.assertIn("Empty field received. Please enter a name",output)
             self.assertEqual(car.name, "CAR2")
-
-    # input tested on wrong position format, out of bounds position, invalid input, overlapping position 
-    @patch('builtins.input', side_effect=["Car2", "invalid", "15 15 n", " 5 4 a ", "0 0 s ", "1 2 N", "LrF"])
+    
+    # input tested on wrong position format, invalid input, empty input, overlapping position 
+    @patch('builtins.input', side_effect=["Car2", "invalid", " 5 4 a ", "0 0 s ", "", "1 2 N", "LrF"])
     def test_car_wrong_position(self, mock_input):
         car1 = DummyCar("CAR1", "0", "0", "N", "F")
         registry = [car1]
@@ -81,7 +84,7 @@ class TestCarSetup(unittest.TestCase):
             self.assertEqual(car.final_dir, "N")
 
 
-    # input tested on wrong position format, out of bounds position, invalid input, overlapping position 
+    # ENHANCED: input tested on out of bounds position ( 2 x 2 ) for field size only 2 x 2
     @patch('builtins.input', side_effect=["Car2", "2 2 n", "1 1 N", "LrF"])
     def test_car_enhanced_wrong_position(self, mock_input):
         registry = []
@@ -94,9 +97,9 @@ class TestCarSetup(unittest.TestCase):
             self.assertEqual(car.final_y, 1)
             self.assertEqual(car.final_dir, "N")
 
-    # input tested on invalid commands
-    @patch('builtins.input', side_effect=["Car2", "1 2 N", "abc", "LrF"])
-    def test_duplicate_name(self, mock_input):
+    # input tested on invalid commands, empty commands
+    @patch('builtins.input', side_effect=["Car2", "1 2 N", "abc", "", "LrF"])
+    def test_invalid_commands(self, mock_input):
         registry = []
         field = DummyField(10, 10)
         with patch('sys.stdout', new=io.StringIO()) as fake_out:

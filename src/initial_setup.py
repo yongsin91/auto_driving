@@ -49,6 +49,8 @@ class car_setup:
                 # to check if car names exists in current list
                 if input_name in [car.name for car in data]:
                     raise ValueError("This name already exists. Please try again")
+                elif input_name == "" or input_name == None:
+                    raise ValueError("Empty field received. Please enter a name")
                 else:
                     self.name = input_name
                     break
