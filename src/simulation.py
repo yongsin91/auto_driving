@@ -34,7 +34,7 @@ def run_simulation(data, field):
             else: 
                 curr_x, curr_y =  move_forward(direction[car.final_dir], car.final_x, car.final_y)
                 # to skip updating car movement if it's final position exceeds board boundary
-                if curr_x > field.width or curr_y > field.height or curr_x < 0 or curr_y < 0:
+                if curr_x >= field.width or curr_y >= field.height or curr_x < 0 or curr_y < 0:
                     car.step = a + 1
                     continue
                 else:

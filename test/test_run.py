@@ -41,12 +41,26 @@ class TestFieldSetup(unittest.TestCase):
             self.assertEqual(fs.width, 15)
             self.assertEqual(fs.height, 25)
 
+    @patch('builtins.input', side_effect=["0 0","15 25"])
+    def test_enhanced_zerofield(self, mock_input):
+        # This test simulates two invalid inputs followed by a valid input.
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            fs = field_setup()
+            fs.start()
+            output = fake_out.getvalue()
+            # Check that error messages appear for invalid inputs
+            self.assertIn("Invalid input. please enter more than 0 x 0", output)
+            # And finally, that the valid input is accepted
+            self.assertIn("You have created a field of 15 x 25.", output)
+            self.assertEqual(fs.width, 15)
+            self.assertEqual(fs.height, 25)
+
 # Unit tests for car_setup
 class TestCarSetup(unittest.TestCase):
  
     # input tested on duplicating car names 
     @patch('builtins.input', side_effect=["Car1", "Car2", "1 2 N", "LrF"])
-    def test_duplicate_name(self, mock_input):
+    def test_car_duplicate_name(self, mock_input):
         car1 = DummyCar("CAR1", "0", "0", "N", "F")
         registry = [car1]
         field = DummyField(10, 10)
@@ -56,7 +70,7 @@ class TestCarSetup(unittest.TestCase):
 
     # input tested on wrong position format, out of bounds position, invalid input, overlapping position 
     @patch('builtins.input', side_effect=["Car2", "invalid", "15 15 n", " 5 4 a ", "0 0 s ", "1 2 N", "LrF"])
-    def test_duplicate_name(self, mock_input):
+    def test_car_wrong_position(self, mock_input):
         car1 = DummyCar("CAR1", "0", "0", "N", "F")
         registry = [car1]
         field = DummyField(10, 10)
@@ -64,6 +78,20 @@ class TestCarSetup(unittest.TestCase):
             car = car_setup(field, registry)
             self.assertEqual(car.final_x, 1)
             self.assertEqual(car.final_y, 2)
+            self.assertEqual(car.final_dir, "N")
+
+
+    # input tested on wrong position format, out of bounds position, invalid input, overlapping position 
+    @patch('builtins.input', side_effect=["Car2", "2 2 n", "1 1 N", "LrF"])
+    def test_car_enhanced_wrong_position(self, mock_input):
+        registry = []
+        field = DummyField(2, 2)
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            car = car_setup(field, registry)
+            output = fake_out.getvalue()
+            self.assertIn('Error: Impossible initial position. The simulation field size is 2 x 2. Please try again.\n', output)
+            self.assertEqual(car.final_x, 1)
+            self.assertEqual(car.final_y, 1)
             self.assertEqual(car.final_dir, "N")
 
     # input tested on invalid commands
@@ -168,7 +196,7 @@ class TestSimulation(unittest.TestCase):
             # Expect car will not move out of bounds during step 4 & 5, but rotate right at step 6 and move.
             # Expect steps are still counted although car is not moving due to out of bounds
             self.assertEqual(carB.final_x, 4)
-            self.assertEqual(carB.final_y, 10)
+            self.assertEqual(carB.final_y, 9)
             self.assertEqual(carB.step,7)
 
 # Unit tests for the base

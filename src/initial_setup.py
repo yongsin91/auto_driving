@@ -18,6 +18,10 @@ class field_setup:
                     # Split the input and convert to integers
                     num1, num2 = map(int, user_input.split())
                     
+                    if num1 == 0 and num2 == 0:
+                        raise ValueError("Invalid input. please enter more than 0 x 0")
+                        continue
+
                     # Check if both integers are within the specified range  
                     print(f"You have created a field of {num1} x {num2}.")
 
@@ -68,7 +72,7 @@ class car_setup:
                 if f"{xi} {yi}" in [ f"{car.final_x} {car.final_y}" for car in data]:
                     raise ValueError("Location already occupied. Please start at a new location")
                 # ensure position given are within the initial boundary           
-                elif int(xi) > field.width or int(yi) > field.height:
+                elif int(xi) >= field.width or int(yi) >= field.height:
                     raise ValueError(f"Impossible initial position. The simulation field size is {field.width} x {field.height}. Please try again.")            
                 else: 
                     self.initial_x = self.final_x = int(xi)
